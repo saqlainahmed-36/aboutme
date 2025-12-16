@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saqlain Ahmed Seam - Digital Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #00FF88;
+            --cyber-aqua: #00FFFF;
+            --electric-blue: #0088FF;
+            --dark-carbon: #0a0e1a;
+            --graphite: #141824;
+        }
+
+        body {
+            font-family: 'Alata', sans-serif;
+            background: var(--dark-carbon);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .circuit-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 136, 0.03) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(0, 255, 136, 0.03) 100%);
+            background-size: 100px 100px;
+            opacity: 0.3;
+            animation: circuitFlow 20s linear infinite;
+        }
+
+        @keyframes circuitFlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--neon-green), transparent);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--cyber-aqua), transparent);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--electric-blue), transparent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+
+        /* Particle System */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: particleFloat 10s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Captcha Page */
+        .captcha-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .captcha-page.hidden {
+            display: none;
+        }
+
+        .captcha-container {
+            background: rgba(20, 24, 36, 0.9);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 30px;
+            padding: 60px 80px;
+            box-shadow: 
+                0 0 60px rgba(0, 255, 136, 0.2),
+                inset 0 0 50px rgba(0, 255, 136, 0.05);
+            text-align: center;
+            max-width: 500px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .captcha-title {
+            font-size: 2.5rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .captcha-subtitle {
+            font-size: 1.1rem;
+            color: #8899aa;
+            margin-bottom: 40px;
+        }
+
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .captcha-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .captcha-box:hover::before {
+            left: 100%;
+        }
+
+        .captcha-box:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            transform: scale(1.02);
+        }
+
+        .captcha-checkbox {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--neon-green);
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .captcha-checkbox.checked {
+            background: var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .captcha-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--dark-carbon);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .captcha-label {
+            font-size: 1.2rem;
+            color: #c0d0e0;
+            user-select: none;
+        }
+
+        .captcha-badge {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #6677aa;
+        }
+
+        .captcha-logo {
+            width: 20px;
+            height: 20px;
+            background: var(--neon-green);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Content Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 100px 20px;
+        }
+
+        .hero-title {
+            font-family: 'Alata', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 
+                0 0 20px var(--neon-green),
+                0 0 40px var(--neon-green),
+                0 0 80px var(--neon-green);
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px var(--neon-green),
+                    0 0 40px var(--neon-green),
+                    0 0 80px var(--neon-green);
+            }
+            50% {
+                text-shadow: 
+                    0 0 30px var(--neon-green),
+                    0 0 60px var(--neon-green),
+                    0 0 120px var(--neon-green),
+                    0 0 160px rgba(0, 255, 136, 0.5);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--cyber-aqua);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: #8899aa;
+            max-width: 700px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+        }
+
+        .cta-button {
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Alata', sans-serif;
+            color: var(--dark-carbon);
+            background: var(--neon-green);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px var(--neon-green),
+                0 0 60px rgba(0, 255, 136, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 0 40px var(--neon-green),
+                0 0 80px rgba(0, 255, 136, 0.7),
+                0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Glass Panel Section */
+        .glass-panel {
+            background: rgba(20, 24, 36, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 80px 0;
+            box-shadow: 
+                0 0 50px rgba(0, 255, 136, 0.1),
+                inset 0 0 50px rgba(0, 255, 136, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-green), var(--cyber-aqua), var(--electric-blue));
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .glass-panel:hover::before {
+            opacity: 0.3;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .section-title {
+            font-family: 'Alata', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+        }
+
+        .bio-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #c0d0e0;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--neon-green);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 136, 0.4),
+                0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px var(--neon-green));
+        }
+
+        .stat-title {
+            font-family: 'Alata', sans-serif;
+            font-size: 1.3rem;
+            color: var(--neon-green);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            color: #8899aa;
+        }
+
+        /* Interest Tags */
+        .interests-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .interest-tag {
+            padding: 15px 35px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid var(--neon-green);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--neon-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .interest-tag:hover {
+            background: var(--neon-green);
+            color: var(--dark-carbon);
+            transform: scale(1.15);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+        }
+
+        /* CV Table */
+        .cv-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 15px;
+            margin-top: 30px;
+        }
+
+        .cv-table th {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 255, 0.2));
+            color: var(--neon-green);
+            padding: 20px;
+            font-family: 'Alata', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid rgba(0, 255, 136, 0.4);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+        }
+
+        .cv-table td {
+            background: rgba(20, 24, 36, 0.8);
+            padding: 20px;
+            color: #c0d0e0;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            font-size: 1.1rem;
+        }
+
+        .cv-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .cv-table tr:hover td {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 100px;
+            border-top: 2px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: #8899aa;
+            margin: 10px 0;
+        }
+
+        .footer-highlight {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        /* CV Toggle */
+        .cv-page {
+            display: none;
+        }
+
+        .cv-page.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                letter-spacing: 4px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .glass-panel {
+                padding: 40px 20px;
+            }
+
+            .captcha-container {
+                padding: 40px 30px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-carbon);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 6px;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Layers -->
+    <div class="background-layer">
+        <div class="circuit-pattern"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Captcha Page -->
+    <div id="captcha" class="captcha-page">
+        <div class="captcha-container">
+            <h1 class="captcha-title">SCAPTCHA</h1>
+            <p class="captcha-subtitle">Verify you are human to continue</p>
+            <div class="captcha-box" onclick="verifyCaptcha()">
+                <div class="captcha-checkbox" id="checkbox"></div>
+                <div class="captcha-label">I'm not a robot</div>
+            </div>
+            <div class="captcha-badge">
+                <div class="captcha-logo"></div>
+                <span>Protected by Scaptcha</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+        <!-- Portfolio Page -->
+        <div id="portfolio" class="portfolio-page">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <h1 class="hero-title">SAQLAIN AHMED SEAM</h1>
+                    <p class="hero-subtitle">ASPIRING CSE ENGINEER | DIGITAL CREATOR</p>
+                    <p class="hero-tagline">
+                        Bridging creativity and technology — crafting tomorrow's innovations through code, design, and boundless curiosity
+                    </p>
+                    <a href="#" class="cta-button" onclick="showCV(); return false;">
+                        <span style="position: relative; z-index: 1;">VIEW DIGITAL CV</span>
+                    </a>
+                </section>
+
+                <!-- About Section -->
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ ABOUT ME ◣</h2>
+                    <p class="bio-text">
+                        Saqlain Ahmed Seam was born on 31 March 2011 in Jamalpur, Bangladesh. A bright and dedicated student of Class 8 at Jamalpur Zilla School, he is known for his curiosity and creative mindset. With a deep passion for cricket and graphic design, Saqlain expresses his artistic sense through modern digital creation. Constantly exploring new ideas in technology, he dreams of becoming a Computer Science and Engineering professional. His balanced blend of intelligence, discipline, and creativity makes him a promising young innovator on the path to success.
+                    </p>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-title">BORN</div>
+                            <div class="stat-value">31 March 2011</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📍</div>
+                            <div class="stat-title">LOCATION</div>
+                            <div class="stat-value">Jamalpur, Bangladesh</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎓</div>
+                            <div class="stat-title">EDUCATION</div>
+                            <div class="stat-value">Class 8, Jamalpur Zilla School</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-title">AMBITION</div>
+                            <div class="stat-value">CSE Professional</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interests Section -->
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ PASSIONS & SKILLS ◣</h2>
+                    <div class="interests-container">
+                        <div class="interest-tag">🏏 CRICKET</div>
+                        <div class="interest-tag">🎨 GRAPHIC DESIGN</div>
+                        <div class="interest-tag">💻 TECHNOLOGY</div>
+                        <div class="interest-tag">✨ DIGITAL CREATION</div>
+                        <div class="interest-tag">🚀 INNOVATION</div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <p class="footer-text">© 2025 <span class="footer-highlight">SAQLAIN AHMED SEAM</span></p>
+                    <p class="footer-text">CURIOSITY • CREATIVITY • DETERMINATION</p>
+                    <p class="footer-text" style="margin-top: 20px; font-size: 0.9rem;">POWERED BY THE FUTURE</p>
+                </footer>
+            </div>
+        </div>
+
+        <!-- CV Page -->
+        <div id="cv" class="cv-page">
+            <div class="container">
+                <section class="hero" style="min-height: 50vh;">
+                    <h1 class="hero-title" style="font-size: clamp(2rem, 6vw, 4rem);">DIGITAL CV</h1>
+                    <p class="hero-subtitle">SAQLAIN AHMED SEAM</p>
+                    <a href="#" class="cta-button" onclick="showPortfolio(); return false;">
+                        <span style="position: relative; z-index: 1;">← BACK TO PORTFOLIO</span>
+                    </a>
+                </section>
+
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ PERSONAL DATA ◣</h2>
+                    <table class="cv-table">
+                        <tr>
+                            <th>FIELD</th>
+                            <th>DETAILS</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Full Name</strong></td>
+                            <td>Saqlain Ahmed Seam</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date of Birth</strong></td>
+                            <td>31 March 2011</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Place of Birth</strong></td>
+                            <td>Jamalpur, Bangladesh</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nationality</strong></td>
+                            <td>Bangladeshi</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ EDUCATION ◣</h2>
+                    <table class="cv-table">
+                        <tr>
+                            <th>LEVEL</th>
+                            <th>INSTITUTION</th>
+                            <th>STATUS</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Secondary</strong></td>
+                            <td>Jamalpur Zilla School</td>
+                            <td>Currently Class 8</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ COMPETENCIES ◣</h2>
+                    <table class="cv-table">
+                        <tr>
+                            <th>CATEGORY</th>
+                            <th>SKILLS</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Creative</strong></td>
+                            <td>Graphic Design, Digital Art, Creative Thinking</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical</strong></td>
+                            <td>Technology Exploration, Digital Creation, Computer Literacy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personal</strong></td>
+                            <td>Curiosity, Determination, Discipline, Intelligence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Academic</strong></td>
+                            <td>Problem Solving, Research, Analytical Thinking</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="glass-panel">
+                    <h2 class="section-title">◢ CAREER VISION ◣</h2>
+                    <table class="cv-table">
+                        <tr>
+                            <th>TIMELINE</th>
+                            <th>OBJECTIVE</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Short-term</strong></td>
+                            <td>Excel in academics and build strong foundation in mathematics and sciences</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medium-term</strong></td>
+                            <td>Complete secondary education with excellence and pursue higher education in technology</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Long-term</strong></td>
+                            <td>Become a CSE professional and contribute to technological innovation</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <footer class="footer">
+                    <p class="footer-text">© 2025 <span class="footer-highlight">SAQLAIN AHMED SEAM</span></p>
+                    <p class="footer-text">THE FUTURE IS NOW</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle System
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Captcha Verification
+        function verifyCaptcha() {
+            const checkbox = document.getElementById('checkbox');
+            checkbox.classList.add('checked');
+            
+            setTimeout(() => {
+                document.getElementById('captcha').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('active');
+            }, 800);
+        }
+
+        // Page Navigation
+        function showCV() {
+            document.getElementById('portfolio').style.display = 'none';
+            document.getElementById('cv').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showPortfolio() {
+            document.getElementById('cv').classList.remove('active');
+            document.getElementById('portfolio').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+  </html>
